@@ -103,12 +103,12 @@ void drawMainGui() {
         MeshViz::highlightFace(mesh, selectedFace, "Selected Face");
     }
 
-    ImGui::Separator();
+    //ImGui::Separator();
 
-    ImGui::Text("Geometric Analysis:");
-    if (ImGui::Button("Show Mean Curvature (Laplacian)")) {
-        MeshViz::showMeanCurvature(mesh, "Dragon");
-    }
+    //ImGui::Text("Geometric Analysis:");
+    //if (ImGui::Button("Show Mean Curvature (Laplacian)")) {
+    //    MeshViz::showMeanCurvature(mesh, "Dragon");
+    //}
     ImGui::Separator();
 
     // Ring neighborhood
