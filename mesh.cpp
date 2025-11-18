@@ -246,3 +246,89 @@ void Mesh::getPositionsAndFaces(std::vector<std::array<double, 3>>& positions,
         }
     }
 }
+
+//void Mesh::laplacianSmooth(int iterations, double lambda) {
+//    for (size_t i = 0; i < iterations; i++)
+//    {
+//        for (const auto& v : vertices_) {
+//            if (v->isBorder()) {
+//                continue; // Skip boundary vertices even if we don't have them in this mesh :D
+//            }
+//            auto neighbors = v->neighbors();
+//
+//            // Calculate centroid of neighbors
+//            double sumX = 0.0, sumY = 0.0, sumZ = 0.0;
+//            for (const auto& n : neighbors) {
+//                sumX += n->x;
+//                sumY += n->y;
+//                sumZ += n->z;
+//            }
+//            double avgX = sumX / neighbors.size();
+//            double avgY = sumY / neighbors.size();
+//            double avgZ = sumZ / neighbors.size();
+//
+//            // Apply the new position directly to the mesh 
+//            v->x += lambda * (avgX - v->x);
+//            v->y += lambda * (avgY - v->y);
+//            v->z += lambda * (avgZ - v->z);
+//        }
+//    }
+// }
+
+
+
+// Inside mesh.cpp
+
+void Mesh::laplacianSmooth(int iterations, double lambda) {
+    // Temporary storage for new positions to ensure simultaneous update
+    std::vector<std::array<double, 3>> newPositions;
+    newPositions.reserve(numVertices());
+
+    for (int iter = 0; iter < iterations; ++iter) {
+        newPositions.clear();
+
+        // Step 1: Calculate new positions for all vertices
+        for (const auto& v : vertices_) {
+            // Optional: Pin boundary vertices to prevent the mesh from shrinking at the edges
+            // if (v->isBorder()) {
+            //     newPositions.push_back({v->x, v->y, v->z});
+            //     continue;
+            // }
+
+            auto neighbors = v->neighbors();
+
+            if (neighbors.empty()) {
+                newPositions.push_back({ v->x, v->y, v->z });
+                continue;
+            }
+
+            // Calculate Centroid (Average position of neighbors)
+            double sumX = 0.0, sumY = 0.0, sumZ = 0.0;
+            for (const auto& n : neighbors) {
+                sumX += n->x;
+                sumY += n->y;
+                sumZ += n->z;
+            }
+
+            double avgX = sumX / neighbors.size();
+            double avgY = sumY / neighbors.size();
+            double avgZ = sumZ / neighbors.size();
+
+            // Apply Laplacian update rule: v' = v + lambda * (average - v)
+            double newX = v->x + lambda * (avgX - v->x);
+            double newY = v->y + lambda * (avgY - v->y);
+            double newZ = v->z + lambda * (avgZ - v->z);
+
+            newPositions.push_back({ newX, newY, newZ });
+        }
+
+        // Step 2: Apply the calculated positions to the mesh
+        for (int i = 0; i < numVertices(); ++i) {
+            vertices_[i]->x = newPositions[i][0];
+            vertices_[i]->y = newPositions[i][1];
+            vertices_[i]->z = newPositions[i][2];
+        }
+    }
+
+    std::cout << "Applied Laplacian smoothing (" << iterations << " iterations)" << std::endl;
+}

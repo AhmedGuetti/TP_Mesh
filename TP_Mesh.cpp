@@ -4,6 +4,7 @@
 #include <polyscope/polyscope.h>
 #include <imgui.h>
 #include <iostream>
+#include <polyscope/surface_mesh.h>
 
 
 // Global variable for the scene 
@@ -105,10 +106,22 @@ void drawMainGui() {
 
     //ImGui::Separator();
 
-    //ImGui::Text("Geometric Analysis:");
-    //if (ImGui::Button("Show Mean Curvature (Laplacian)")) {
-    //    MeshViz::showMeanCurvature(mesh, "Dragon");
-    //}
+    ImGui::Text("Geometric Analysis:");
+    if (ImGui::Button("10 iteration laplacien")) {
+		// 10 iteration seems fun in the dragon lmao
+        mesh.laplacianSmooth(10, 0.5);
+
+        std::vector<std::array<double, 3>> newPositions;
+		std::vector<std::array<int, 3>> faceIndices; // We need it for the function signature but we won't use it here
+        mesh.getPositionsAndFaces(newPositions, faceIndices);
+
+		// Update the polyscope visualization with the new vertex positions
+        polyscope::SurfaceMesh* psMesh = polyscope::getSurfaceMesh("Dragon");
+        if (psMesh) {
+            psMesh->updateVertexPositions(newPositions);
+        }
+        // TODO: More intresting smothing operation exist where we won't lose volum seems intresting to implement if i had enought time 
+    }
     ImGui::Separator();
 
     // Ring neighborhood

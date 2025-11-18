@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{629fbb3f-e021-463d-bc3b-f8470ac7ae7d}</ProjectGuid>
+    <RootNamespace>TPMesh</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;IMGUI_IMPL_OPENGL_LOADER_GLAD
+;WIN32
+;_CONSOLE
+;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)deps\glm;$(SolutionDir)deps\imgui\imgui;$(SolutionDir)deps\imgui\backends;$(SolutionDir)deps\glfw\include;$(SolutionDir)deps\stb;$(SolutionDir)deps\happly;$(SolutionDir)deps\imgui\implot;$(SolutionDir)deps\glad\include;$(SolutionDir)deps\tinyObj</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);polyscope.lib;
+glfw3.lib;
+opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dep;$(SolutionDir)deps\glfw\build\src\Debug</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;IMGUI_IMPL_OPENGL_LOADER_GLAD
+;WIN32
+;_CONSOLE
+;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)deps\glm;$(SolutionDir)deps\imgui\imgui;$(SolutionDir)deps\imgui\backends;$(SolutionDir)deps\glfw\include;$(SolutionDir)deps\stb;$(SolutionDir)deps\happly;$(SolutionDir)deps\imgui\implot;$(SolutionDir)deps\glad\include;$(SolutionDir)deps\tinyObj</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);polyscope.lib;
+glfw3.lib;
+opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dep;$(SolutionDir)deps\glfw\build\src\Debug</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;IMGUI_IMPL_OPENGL_LOADER_GLAD
+;WIN32
+;_CONSOLE
+;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)deps\glm;$(SolutionDir)deps\imgui\imgui;$(SolutionDir)deps\imgui\backends;$(SolutionDir)deps\glfw\include;$(SolutionDir)deps\stb;$(SolutionDir)deps\happly;$(SolutionDir)deps\imgui\implot;$(SolutionDir)deps\glad\include;$(SolutionDir)deps\tinyObj</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);polyscope.lib;
+glfw3.lib;
+opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dep;$(SolutionDir)deps\glfw\build\src\Debug</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>GLM_ENABLE_EXPERIMENTAL;IMGUI_IMPL_OPENGL_LOADER_GLAD
+;WIN32
+;_CONSOLE
+;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)include;$(SolutionDir)deps\glm;$(SolutionDir)deps\imgui\imgui;$(SolutionDir)deps\imgui\backends;$(SolutionDir)deps\glfw\include;$(SolutionDir)deps\stb;$(SolutionDir)deps\happly;$(SolutionDir)deps\imgui\implot;$(SolutionDir)deps\glad\include;$(SolutionDir)deps\tinyObj</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>$(CoreLibraryDependencies);%(AdditionalDependencies);polyscope.lib;
+glfw3.lib;
+opengl32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)dep;$(SolutionDir)deps\glfw\build\src\Debug</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="deps\glad\src\glad.c" />
+    <ClCompile Include="deps\imgui\imgui\backends\imgui_impl_dx10.cpp" />
+    <ClCompile Include="deps\imgui\imgui\backends\imgui_impl_dx11.cpp" />
+    <ClCompile Include="deps\imgui\imgui\backends\imgui_impl_dx12.cpp" />
+    <ClCompile Include="deps\imgui\imgui\backends\imgui_impl_dx9.cpp" />
+    <ClCompile Include="deps\imgui\imgui\backends\imgui_impl_glfw.cpp" />
+    <ClCompile Include="deps\imgui\imgui\backends\imgui_impl_opengl2.cpp" />
+    <ClCompile Include="deps\imgui\imgui\backends\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="deps\imgui\imgui\backends\imgui_impl_win32.cpp" />
+    <ClCompile Include="deps\imgui\imgui\imgui.cpp" />
+    <ClCompile Include="deps\imgui\imgui\imgui_demo.cpp" />
+    <ClCompile Include="deps\imgui\imgui\imgui_draw.cpp" />
+    <ClCompile Include="deps\imgui\imgui\imgui_tables.cpp" />
+    <ClCompile Include="deps\imgui\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="deps\imgui\implot\implot.cpp" />
+    <ClCompile Include="deps\imgui\implot\implot_items.cpp" />
+    <ClCompile Include="deps\stb\stb_impl.cpp" />
+    <ClCompile Include="face.cpp" />
+    <ClCompile Include="halfedge.cpp" />
+    <ClCompile Include="mesh.cpp" />
+    <ClCompile Include="mesh_io.cpp" />
+    <ClCompile Include="mesh_viz.cpp" />
+    <ClCompile Include="TP_Mesh.cpp" />
+    <ClCompile Include="vertex.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="dep\polyscope.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="deps\glad\include\glad\glad.h" />
+    <ClInclude Include="deps\glad\include\KHR\khrplatform.h" />
+    <ClInclude Include="deps\imgui\imgui\backends\imgui_impl_dx10.h" />
+    <ClInclude Include="deps\imgui\imgui\backends\imgui_impl_dx11.h" />
+    <ClInclude Include="deps\imgui\imgui\backends\imgui_impl_dx12.h" />
+    <ClInclude Include="deps\imgui\imgui\backends\imgui_impl_dx9.h" />
+    <ClInclude Include="deps\imgui\imgui\backends\imgui_impl_glfw.h" />
+    <ClInclude Include="deps\imgui\imgui\backends\imgui_impl_opengl2.h" />
+    <ClInclude Include="deps\imgui\imgui\backends\imgui_impl_opengl3.h" />
+    <ClInclude Include="deps\imgui\imgui\backends\imgui_impl_opengl3_loader.h" />
+    <ClInclude Include="deps\imgui\imgui\backends\imgui_impl_win32.h" />
+    <ClInclude Include="deps\imgui\imgui\imconfig.h" />
+    <ClInclude Include="deps\imgui\imgui\imgui.h" />
+    <ClInclude Include="deps\imgui\imgui\imgui_internal.h" />
+    <ClInclude Include="deps\imgui\imgui\imstb_rectpack.h" />
+    <ClInclude Include="deps\imgui\imgui\imstb_textedit.h" />
+    <ClInclude Include="deps\imgui\imgui\imstb_truetype.h" />
+    <ClInclude Include="deps\imgui\implot\implot.h" />
+    <ClInclude Include="deps\imgui\implot\implot_internal.h" />
+    <ClInclude Include="deps\stb\stb_image.h" />
+    <ClInclude Include="deps\stb\stb_image_write.h" />
+    <ClInclude Include="deps\tinyObj\tiny_obj_loader.h" />
+    <ClInclude Include="face.h" />
+    <ClInclude Include="forward_declarations.h" />
+    <ClInclude Include="halfedge.h" />
+    <ClInclude Include="include\polyscope\affine_remapper.h" />
+    <ClInclude Include="include\polyscope\affine_remapper.ipp" />
+    <ClInclude Include="include\polyscope\camera_parameters.h" />
+    <ClInclude Include="include\polyscope\camera_parameters.ipp" />
+    <ClInclude Include="include\polyscope\camera_view.h" />
+    <ClInclude Include="include\polyscope\camera_view.ipp" />
+    <ClInclude Include="include\polyscope\check_invalid_values.h" />
+    <ClInclude Include="include\polyscope\colors.h" />
+    <ClInclude Include="include\polyscope\color_image_quantity.h" />
+    <ClInclude Include="include\polyscope\color_management.h" />
+    <ClInclude Include="include\polyscope\color_quantity.h" />
+    <ClInclude Include="include\polyscope\color_quantity.ipp" />
+    <ClInclude Include="include\polyscope\color_render_image_quantity.h" />
+    <ClInclude Include="include\polyscope\combining_hash_functions.h" />
+    <ClInclude Include="include\polyscope\context.h" />
+    <ClInclude Include="include\polyscope\curve_network.h" />
+    <ClInclude Include="include\polyscope\curve_network.ipp" />
+    <ClInclude Include="include\polyscope\curve_network_color_quantity.h" />
+    <ClInclude Include="include\polyscope\curve_network_quantity.h" />
+    <ClInclude Include="include\polyscope\curve_network_scalar_quantity.h" />
+    <ClInclude Include="include\polyscope\curve_network_vector_quantity.h" />
+    <ClInclude Include="include\polyscope\depth_render_image_quantity.h" />
+    <ClInclude Include="include\polyscope\disjoint_sets.h" />
+    <ClInclude Include="include\polyscope\elementary_geometry.h" />
+    <ClInclude Include="include\polyscope\file_helpers.h" />
+    <ClInclude Include="include\polyscope\floating_quantities.h" />
+    <ClInclude Include="include\polyscope\floating_quantity.h" />
+    <ClInclude Include="include\polyscope\floating_quantity_structure.h" />
+    <ClInclude Include="include\polyscope\floating_quantity_structure.ipp" />
+    <ClInclude Include="include\polyscope\fullscreen_artist.h" />
+    <ClInclude Include="include\polyscope\group.h" />
+    <ClInclude Include="include\polyscope\histogram.h" />
+    <ClInclude Include="include\polyscope\image_quantity.h" />
+    <ClInclude Include="include\polyscope\image_quantity_base.h" />
+    <ClInclude Include="include\polyscope\imgui_config.h" />
+    <ClInclude Include="include\polyscope\implicit_helpers.h" />
+    <ClInclude Include="include\polyscope\implicit_helpers.ipp" />
+    <ClInclude Include="include\polyscope\internal.h" />
+    <ClInclude Include="include\polyscope\messages.h" />
+    <ClInclude Include="include\polyscope\numeric_helpers.h" />
+    <ClInclude Include="include\polyscope\options.h" />
+    <ClInclude Include="include\polyscope\parameterization_quantity.h" />
+    <ClInclude Include="include\polyscope\parameterization_quantity.ipp" />
+    <ClInclude Include="include\polyscope\persistent_value.h" />
+    <ClInclude Include="include\polyscope\pick.h" />
+    <ClInclude Include="include\polyscope\pick.ipp" />
+    <ClInclude Include="include\polyscope\point_cloud.h" />
+    <ClInclude Include="include\polyscope\point_cloud.ipp" />
+    <ClInclude Include="include\polyscope\point_cloud_color_quantity.h" />
+    <ClInclude Include="include\polyscope\point_cloud_parameterization_quantity.h" />
+    <ClInclude Include="include\polyscope\point_cloud_quantity.h" />
+    <ClInclude Include="include\polyscope\point_cloud_scalar_quantity.h" />
+    <ClInclude Include="include\polyscope\point_cloud_vector_quantity.h" />
+    <ClInclude Include="include\polyscope\polyscope.h" />
+    <ClInclude Include="include\polyscope\quantity.h" />
+    <ClInclude Include="include\polyscope\quantity.ipp" />
+    <ClInclude Include="include\polyscope\ragged_nested_array.h" />
+    <ClInclude Include="include\polyscope\raw_color_alpha_render_image_quantity.h" />
+    <ClInclude Include="include\polyscope\raw_color_render_image_quantity.h" />
+    <ClInclude Include="include\polyscope\render\colormap_defs.h" />
+    <ClInclude Include="include\polyscope\render\color_maps.h" />
+    <ClInclude Include="include\polyscope\render\engine.h" />
+    <ClInclude Include="include\polyscope\render\engine.ipp" />
+    <ClInclude Include="include\polyscope\render\ground_plane.h" />
+    <ClInclude Include="include\polyscope\render\managed_buffer.h" />
+    <ClInclude Include="include\polyscope\render\managed_buffer.ipp" />
+    <ClInclude Include="include\polyscope\render\materials.h" />
+    <ClInclude Include="include\polyscope\render\material_defs.h" />
+    <ClInclude Include="include\polyscope\render\mock_opengl\mock_gl_engine.h" />
+    <ClInclude Include="include\polyscope\render\opengl\gl_engine.h" />
+    <ClInclude Include="include\polyscope\render\opengl\gl_engine_egl.h" />
+    <ClInclude Include="include\polyscope\render\opengl\gl_engine_glfw.h" />
+    <ClInclude Include="include\polyscope\render\opengl\gl_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\common.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\cylinder_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\gizmo_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\grid_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\ground_plane_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\histogram_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\lighting_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\ribbon_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\rules.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\sphere_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\surface_mesh_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\texture_draw_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\vector_shaders.h" />
+    <ClInclude Include="include\polyscope\render\opengl\shaders\volume_mesh_shaders.h" />
+    <ClInclude Include="include\polyscope\render\shader_builder.h" />
+    <ClInclude Include="include\polyscope\render\templated_buffers.h" />
+    <ClInclude Include="include\polyscope\render_image_quantity_base.h" />
+    <ClInclude Include="include\polyscope\scalar_image_quantity.h" />
+    <ClInclude Include="include\polyscope\scalar_quantity.h" />
+    <ClInclude Include="include\polyscope\scalar_quantity.ipp" />
+    <ClInclude Include="include\polyscope\scalar_render_image_quantity.h" />
+    <ClInclude Include="include\polyscope\scaled_value.h" />
+    <ClInclude Include="include\polyscope\screenshot.h" />
+    <ClInclude Include="include\polyscope\simple_triangle_mesh.h" />
+    <ClInclude Include="include\polyscope\simple_triangle_mesh.ipp" />
+    <ClInclude Include="include\polyscope\slice_plane.h" />
+    <ClInclude Include="include\polyscope\standardize_data_array.h" />
+    <ClInclude Include="include\polyscope\structure.h" />
+    <ClInclude Include="include\polyscope\structure.ipp" />
+    <ClInclude Include="include\polyscope\surface_color_quantity.h" />
+    <ClInclude Include="include\polyscope\surface_mesh.h" />
+    <ClInclude Include="include\polyscope\surface_mesh.ipp" />
+    <ClInclude Include="include\polyscope\surface_mesh_quantity.h" />
+    <ClInclude Include="include\polyscope\surface_parameterization_quantity.h" />
+    <ClInclude Include="include\polyscope\surface_scalar_quantity.h" />
+    <ClInclude Include="include\polyscope\surface_vector_quantity.h" />
+    <ClInclude Include="include\polyscope\texture_map_quantity.h" />
+    <ClInclude Include="include\polyscope\texture_map_quantity.ipp" />
+    <ClInclude Include="include\polyscope\transformation_gizmo.h" />
+    <ClInclude Include="include\polyscope\types.h" />
+    <ClInclude Include="include\polyscope\utilities.h" />
+    <ClInclude Include="include\polyscope\vector_quantity.h" />
+    <ClInclude Include="include\polyscope\vector_quantity.ipp" />
+    <ClInclude Include="include\polyscope\view.h" />
+    <ClInclude Include="include\polyscope\volume_grid.h" />
+    <ClInclude Include="include\polyscope\volume_grid.ipp" />
+    <ClInclude Include="include\polyscope\volume_grid_quantity.h" />
+    <ClInclude Include="include\polyscope\volume_grid_scalar_quantity.h" />
+    <ClInclude Include="include\polyscope\volume_mesh.h" />
+    <ClInclude Include="include\polyscope\volume_mesh.ipp" />
+    <ClInclude Include="include\polyscope\volume_mesh_color_quantity.h" />
+    <ClInclude Include="include\polyscope\volume_mesh_quantity.h" />
+    <ClInclude Include="include\polyscope\volume_mesh_scalar_quantity.h" />
+    <ClInclude Include="include\polyscope\volume_mesh_vector_quantity.h" />
+    <ClInclude Include="include\polyscope\weak_handle.h" />
+    <ClInclude Include="include\polyscope\widget.h" />
+    <ClInclude Include="mesh.h" />
+    <ClInclude Include="mesh_io.h" />
+    <ClInclude Include="mesh_viz.h" />
+    <ClInclude Include="vertex.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

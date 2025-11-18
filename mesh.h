@@ -39,6 +39,8 @@ public:
     void getPositionsAndFaces(std::vector<std::array<double, 3>>& positions,
         std::vector<std::array<int, 3>>& faceIndices) const;
 
+    void laplacianSmooth(int iterations, double lambda);
+
 private:
     std::vector<std::unique_ptr<Vertex>> vertices_;
     std::vector<std::unique_ptr<Face>> faces_;
