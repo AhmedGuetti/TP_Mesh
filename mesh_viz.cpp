@@ -409,4 +409,50 @@ namespace MeshViz {
         polyscope::removePointCloud("Vertex Gradient", false);
     }
 
+    void MeshViz::showLaplacianMagnitude(const Mesh& mesh, const std::string& meshName) {
+        auto* psMesh = polyscope::getSurfaceMesh(meshName);
+        if (!psMesh) {
+            std::cerr << "Erreur : Le maillage " << meshName << " n'est pas enregistré dans Polyscope." << std::endl;
+            return;
+        }
+
+        std::vector<double> laplacianMagnitudes;
+
+        for (int i = 0; i < mesh.numVertices(); ++i) {
+            Vertex* v = mesh.getVertex(i);
+            auto neighbors = v->neighbors();
+
+            if (neighbors.empty()) {
+                laplacianMagnitudes.push_back(0.0);
+                continue;
+            }
+
+            // Calculate the barycentre of all neighbors
+            double sumX = 0.0, sumY = 0.0, sumZ = 0.0;
+            for (Vertex* n : neighbors) {
+                sumX += n->x;
+                sumY += n->y;
+                sumZ += n->z;
+            }
+
+            double avgX = sumX / neighbors.size();
+            double avgY = sumY / neighbors.size();
+            double avgZ = sumZ / neighbors.size();
+
+            // L = Moyenne - Position actuelle
+            double Lx = avgX - v->x;
+            double Ly = avgY - v->y;
+            double Lz = avgZ - v->z;
+
+            // Norme of vector
+            double magnitude = std::sqrt(Lx * Lx + Ly * Ly + Lz * Lz);
+
+            laplacianMagnitudes.push_back(magnitude);
+        }
+
+        auto* q = psMesh->addVertexScalarQuantity("Laplacian Magnitude (Curvature)", laplacianMagnitudes);
+        q->setEnabled(true); // Afficher immédiatement
+        q->setColorMap("jet"); // "jet" ou "viridis" sont bons pour voir les différences
+    }
+
 }  // namespace MeshViz

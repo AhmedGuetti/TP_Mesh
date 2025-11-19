@@ -278,7 +278,7 @@ void Mesh::getPositionsAndFaces(std::vector<std::array<double, 3>>& positions,
 
 
 // Inside mesh.cpp
-
+//https://graphics.stanford.edu/courses/cs468-12-spring/LectureSlides/06_smoothing.pdf
 void Mesh::laplacianSmooth(int iterations, double lambda) {
     // Temporary storage for new positions to ensure simultaneous update
     std::vector<std::array<double, 3>> newPositions;
@@ -331,4 +331,64 @@ void Mesh::laplacianSmooth(int iterations, double lambda) {
     }
 
     std::cout << "Applied Laplacian smoothing (" << iterations << " iterations)" << std::endl;
+}
+
+using SpMat = Eigen::SparseMatrix<double>;
+using Triplet = Eigen::Triplet<double>;
+
+
+void Mesh::MatrixLaplacianSmooth(double lambda) {
+    int n = numVertices();
+
+    //(I + lambda * L)
+
+    std::vector<Triplet> coefficients;
+
+    for (int i = 0; i < n; ++i) {
+        Vertex* v = getVertex(i);
+        auto neighbors = v->neighbors();
+
+        // The Diagonal Element: 1.0 (from Identity) + lambda * degree
+        double degree = static_cast<double>(neighbors.size());
+        coefficients.push_back(Triplet(i, i, 1.0 + lambda * degree));
+
+        // The Neighbor Elements: -lambda
+        for (Vertex* neighbor : neighbors) {
+            coefficients.push_back(Triplet(i, neighbor->id, -lambda));
+        }
+    }
+
+    SpMat A(n, n);
+    A.setFromTriplets(coefficients.begin(), coefficients.end());
+
+    // SimplicialLLT is a Cholesky solver, perfect for this Symmetric Positive Definite matrix
+    Eigen::SimplicialLLT<SpMat> solver;
+    solver.compute(A);
+
+    if (solver.info() != Eigen::Success) {
+        std::cerr << "Error: Matrix factorization failed!" << std::endl;
+        return;
+    }
+
+    // 3. Solve for X, Y, and Z coordinates
+    // We copy current positions into Eigen vectors
+    Eigen::VectorXd bX(n), bY(n), bZ(n);
+    for (int i = 0; i < n; ++i) {
+        bX[i] = vertices_[i]->x;
+        bY[i] = vertices_[i]->y;
+        bZ[i] = vertices_[i]->z;
+    }
+
+    // The Magic: Solve Ax = b in one line
+    Eigen::VectorXd newX = solver.solve(bX);
+    Eigen::VectorXd newY = solver.solve(bY);
+    Eigen::VectorXd newZ = solver.solve(bZ);
+
+    for (int i = 0; i < n; ++i) {
+        vertices_[i]->x = newX[i];
+        vertices_[i]->y = newY[i];
+        vertices_[i]->z = newZ[i];
+    }
+
+    std::cout << "Implicit smoothing (Eigen) done." << std::endl;
 }

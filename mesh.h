@@ -8,6 +8,7 @@
 #include <memory>
 #include <string>
 #include <array>
+#include <Eigen/Sparse>
 
 class Mesh {
 public:
@@ -40,6 +41,7 @@ public:
         std::vector<std::array<int, 3>>& faceIndices) const;
 
     void laplacianSmooth(int iterations, double lambda);
+    void MatrixLaplacianSmooth(double lambda);
 
 private:
     std::vector<std::unique_ptr<Vertex>> vertices_;

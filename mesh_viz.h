@@ -46,7 +46,5 @@ namespace MeshViz {
         const std::string& quantityName
     );
 
-    //void showMeanCurvature(const Mesh& mesh, const std::string& meshName = "Mesh");
-
-
+    void showLaplacianMagnitude(const Mesh& mesh, const std::string& meshName = "Dragons");
 }

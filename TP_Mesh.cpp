@@ -124,6 +124,24 @@ void drawMainGui() {
     }
     ImGui::Separator();
 
+    if (ImGui::Button("10 iteration laplacien Matrix")) {
+        // 10 iteration seems fun in the dragon lmao
+        mesh.MatrixLaplacianSmooth(0.5);
+
+        std::vector<std::array<double, 3>> newPositions;
+        std::vector<std::array<int, 3>> faceIndices; // We need it for the function signature but we won't use it here
+        mesh.getPositionsAndFaces(newPositions, faceIndices);
+
+        // Update the polyscope visualization with the new vertex positions
+        polyscope::SurfaceMesh* psMesh = polyscope::getSurfaceMesh("Dragon");
+        if (psMesh) {
+            psMesh->updateVertexPositions(newPositions);
+        }
+        // TODO: More intresting smothing operation exist where we won't lose volum seems intresting to implement if i had enought time 
+    }
+    ImGui::Separator();
+
+
     // Ring neighborhood
     ImGui::Text("Ring Neighborhood:");
     ImGui::SliderInt("Ring Size", &ringSize, 1, 5);
@@ -133,6 +151,15 @@ void drawMainGui() {
     }
 
     ImGui::SameLine();
+
+
+    ImGui::Text("Analyse Différentielle :");
+
+    if (ImGui::Button("Afficher le Laplacien (Couleur)")) {
+        MeshViz::showLaplacianMagnitude(mesh, "Dragon"); // Utilisez 'heMesh' (votre objet Mesh C++)
+    }
+    ImGui::Separator();
+
 
 
     if (ImGui::Button("Show Gradient in Surface")) {
