@@ -78,7 +78,7 @@ namespace MeshViz {
         }
 
         auto* cloud = polyscope::registerPointCloud(name, positions);
-        cloud->setPointRadius(0.005);
+        cloud->setPointRadius(0.001);
         cloud->setPointColor({ 1.0, 0.0, 0.0 });
 
         std::cout << "Showing " << borderVerts.size() << " border vertices" << std::endl;
@@ -194,7 +194,7 @@ namespace MeshViz {
 
         auto* q = psMesh->addVertexVectorQuantity("Vertex Normals", normals);
         q->setEnabled(true);
-        q->setVectorLengthScale(0.02);
+        q->setVectorLengthScale(0.001);
         q->setVectorRadius(0.002);
         q->setVectorColor(glm::vec3(0.0, 0.8, 1.0));
 
@@ -221,7 +221,7 @@ namespace MeshViz {
 
         auto* q = psMesh->addFaceVectorQuantity("Face Normals", normals);
         q->setEnabled(true);
-        q->setVectorLengthScale(0.02);
+        q->setVectorLengthScale(0.001);
         q->setVectorRadius(0.002);
         q->setVectorColor(glm::vec3(1.0, 0.5, 0.0));
 
@@ -239,7 +239,7 @@ namespace MeshViz {
         // Show vertex
         std::vector<std::array<double, 3>> pos = { {v->x, v->y, v->z} };
         auto* cloud = polyscope::registerPointCloud(name, pos);
-        cloud->setPointRadius(size);
+        cloud->setPointRadius(0.002f);
         cloud->setPointColor({ color[0], color[1], color[2] });
 
         // Show neighbors
@@ -251,7 +251,9 @@ namespace MeshViz {
             }
 
             auto* neighCloud = polyscope::registerPointCloud(name + " Neighbors", neighborPos);
-            neighCloud->setPointRadius((9 * size) / 10);
+            //neighCloud->setPointRadius((9 * size) / 10);
+            neighCloud->setPointRadius(0.001f);
+
             neighCloud->setPointColor({ 0.0, 0.5, 1.0 });
         }
 
@@ -317,7 +319,7 @@ namespace MeshViz {
         // Show center
         std::vector<std::array<double, 3>> centerPos = { {v->x, v->y, v->z} };
         auto* centerCloud = polyscope::registerPointCloud(name + " Center", centerPos);
-        centerCloud->setPointRadius(0.025);
+        centerCloud->setPointRadius(0.001);
         centerCloud->setPointColor(glm::vec3(0.0, 1.0, 0.0));
 
         // Show ring
@@ -327,7 +329,7 @@ namespace MeshViz {
         }
 
         auto* ringCloud = polyscope::registerPointCloud(name + " Neighbors", ringPos);
-        ringCloud->setPointRadius(0.015);
+        ringCloud->setPointRadius(0.001);
         ringCloud->setPointColor(glm::vec3(0.0, 0.5, 1.0));
 
         std::cout << "Showing " << ringSize << "-ring of vertex " << vertexId

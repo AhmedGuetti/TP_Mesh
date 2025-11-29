@@ -43,6 +43,9 @@ public:
     void laplacianSmooth(int iterations, double lambda);
     void MatrixLaplacianSmooth(double lambda);
 
+    std::array<double, 3> getVertexPosition(int vIndex) const;
+    void setVertexPosition(int vIndex, const std::array<double, 3>& newPos);
+
 private:
     std::vector<std::unique_ptr<Vertex>> vertices_;
     std::vector<std::unique_ptr<Face>> faces_;

@@ -392,3 +392,18 @@ void Mesh::MatrixLaplacianSmooth(double lambda) {
 
     std::cout << "Implicit smoothing (Eigen) done." << std::endl;
 }
+
+
+std::array<double, 3> Mesh::getVertexPosition(int vIndex) const {
+    if (vIndex < 0 || vIndex >= numVertices()) return { 0.0, 0.0, 0.0 };
+    const auto& v = vertices_[vIndex];
+    return { v->x, v->y, v->z };
+}
+
+void Mesh::setVertexPosition(int vIndex, const std::array<double, 3>& newPos) {
+    if (vIndex < 0 || vIndex >= numVertices()) return;
+    auto& v = vertices_[vIndex];
+    v->x = newPos[0];
+    v->y = newPos[1];
+    v->z = newPos[2];
+}

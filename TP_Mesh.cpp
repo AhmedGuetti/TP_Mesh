@@ -15,6 +15,9 @@ static int ringSize = 1;
 static bool showBorder = false;
 static bool showNormals = false;
 
+static int lastSelectedVertex = -1;            // To detect selection changes
+static float vertexEditPos[3] = {0.0f, 0.0f, 0.0f}; // Buffer for ImGui sliders
+
 
 void drawMainGui();
 
@@ -165,8 +168,58 @@ void drawMainGui() {
     if (ImGui::Button("Show Gradient in Surface")) {
         MeshViz::showVertexGradientOnMesh(mesh, "Dragon", selectedVertex, ringSize, "Surface Gradient");
     }
+    ImGui::Separator();
+
+// Vertex selection
+    ImGui::Text("Vertex Selection & Editing:");
+    
+    if (ImGui::InputInt("Vertex ID##2", &selectedVertex)) {
+        selectedVertex = std::max(0, std::min(selectedVertex, mesh.numVertices() - 1));
+    }
+
+    // If selection changed, fetch the real position from the mesh
+    if (selectedVertex != lastSelectedVertex) {
+        std::array<double, 3> pos = mesh.getVertexPosition(selectedVertex);
+        vertexEditPos[0] = (float)pos[0];
+        vertexEditPos[1] = (float)pos[1];
+        vertexEditPos[2] = (float)pos[2];
+        
+        lastSelectedVertex = selectedVertex;
+        
+        // Auto-highlight when selecting a new ID
+        MeshViz::highlightVertex(mesh, selectedVertex, "Selected Vertex");
+    }
+
+    bool positionChanged = ImGui::DragFloat3("Position (X Y Z)", vertexEditPos, 0.01f);
+
+    if (ImGui::Button("Re-Highlight Vertex")) { 
+        MeshViz::highlightVertex(mesh, selectedVertex, "Selected Vertex");
+    }
+
+    // If slider moved, update Mesh and Polyscope
+    if (positionChanged) {
+        std::array<double, 3> newPos = { 
+            (double)vertexEditPos[0], 
+            (double)vertexEditPos[1], 
+            (double)vertexEditPos[2] 
+        };
+        mesh.setVertexPosition(selectedVertex, newPos);
+
+        std::vector<std::array<double, 3>> currentPositions;
+        std::vector<std::array<int, 3>> dummyFaces; 
+        
+        mesh.getPositionsAndFaces(currentPositions, dummyFaces);
+
+        polyscope::SurfaceMesh* psMesh = polyscope::getSurfaceMesh("Dragon");
+        if (psMesh) {
+            psMesh->updateVertexPositions(currentPositions);
+            MeshViz::highlightVertex(mesh, selectedVertex, "Selected Vertex");
+        }
+    }
 
     ImGui::Separator();
+
+
 
     // Clear button
     if (ImGui::Button("Clear All Visualizations", ImVec2(-1, 0))) {
